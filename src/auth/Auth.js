@@ -1,32 +1,45 @@
 import { Button, FormLabel, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { sendAuthRequest } from "../api-helpers/helper";
+import { authActions } from "../store";
 
 const Auth = () => {
+  const dispatch = useDispatch();
+  const navigate=useNavigate
+  const onResReceived = (data) => {
+    if (isSignUp) {
+      localStorage.setItem("userId", data.user._id);
+    } else {
+      localStorage.setItem("userId", data.id);
+    }
+    dispatch(authActions.login());
+    navigate("/diaries");
+  };
   const [isSignUp, setIsSignUp] = useState(true);
   const [inputs, setInputs] = useState({ name: "", email: "", password: "" });
   const handleChange = (e) => {
-     setInputs((prevState)=>({
+    setInputs((prevState) => ({
       ...prevState,
-      [e.target.name]:e.target.value
-     }))
+      [e.target.name]: e.target.value,
+    }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputs)
+    console.log(inputs);
 
     if (isSignUp) {
       sendAuthRequest(true, inputs)
-        .then((data)=>console.log(data))
+        .then(onResReceived)
         .catch((err) => console.log(err));
     } else {
       sendAuthRequest(false, inputs)
-        .then((data)=>console.log(data))
+        .then(onResReceived)
         .catch((err) => console.log(err));
     }
   };
-
 
   return (
     <Box
@@ -83,7 +96,6 @@ const Auth = () => {
             {isSignUp ? "SignUp" : "Login"}
           </Button>
           <Button
-            type="submit"
             variant="outlined"
             sx={{ mt: 2, borderRadius: "10px" }}
             onClick={() => setIsSignUp(!isSignUp)}
