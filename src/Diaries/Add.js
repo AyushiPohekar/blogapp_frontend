@@ -2,6 +2,7 @@ import { Button, FormLabel, TextField, Typography } from "@mui/material";
 import { borderRadius, Box, fontSize } from "@mui/system";
 import React, { useState } from "react";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import toast, { Toaster } from 'react-hot-toast';
 import {
   TravelExploreOutlined,
   TravelExploreRounded,

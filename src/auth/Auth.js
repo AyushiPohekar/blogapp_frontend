@@ -8,8 +8,9 @@ import { authActions } from "../store";
 
 const Auth = () => {
   const dispatch = useDispatch();
-  const navigate=useNavigate
+  const navigate=useNavigate();
   const onResReceived = (data) => {
+    console.log(data)
     if (isSignUp) {
       localStorage.setItem("userId", data.user._id);
     } else {
@@ -28,7 +29,7 @@ const Auth = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputs);
+    //console.log(inputs);
 
     if (isSignUp) {
       sendAuthRequest(true, inputs)
@@ -78,6 +79,7 @@ const Auth = () => {
             value={inputs.email}
             name="email"
             onChange={handleChange}
+            type="email"
             required
           />
           <FormLabel>Password</FormLabel>
@@ -85,6 +87,7 @@ const Auth = () => {
             margin="normal"
             value={inputs.password}
             name="password"
+            type="password"
             onChange={handleChange}
             required
           />

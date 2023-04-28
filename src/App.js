@@ -36,7 +36,7 @@ function App() {
             <>
               <Route path="/add" element={<Add />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/post/:id" element={<DiaryUpdate />} />{" "}
+              <Route path="/posts/:id" element={<DiaryUpdate />} />{" "}
             </>
           )}
       </Routes>

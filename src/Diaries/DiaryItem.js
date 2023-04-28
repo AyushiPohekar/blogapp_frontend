@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Snackbar from '@mui/material/Snackbar';
+import Snackbar from "@mui/material/Snackbar";
 
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -16,31 +16,33 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import { Box } from "@mui/system";
 import { Alert, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAllPosts, postDelete } from "../api-helpers/helper";
-const DiaryItem = ({ title, location, image, description, id, date, user,name }) => {
+import toast, { Toaster } from 'react-hot-toast';
+const DiaryItem = ({
+  title,
+  location,
+  image,
+  description,
+  id,
+  date,
+  user,
+  name,
+}) => {
+ // const [open, setOpen] = React.useState(false);
 
-  const [open, setOpen] = React.useState(false);
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const handleClose = (event, reason) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    // setOpen(false);
 
-    setOpen(false);
-  };
-
-
-
-
-
-
-
-
+const navigate=useNavigate();
   const isLoggedInUser = () => {
     if (localStorage.getItem("userId") === user) {
       return true;
@@ -48,33 +50,39 @@ const DiaryItem = ({ title, location, image, description, id, date, user,name })
       return false;
     }
   };
+ 
+  // const deletedfunc=(data)=>{
+  //   toast.success(data.message)
+  // nbavigate('/diaries')
 
-
+   
+  // }
   const handleDelete = () => {
     postDelete(id)
-      .then( getAllPosts())
+      .then(()=>getAllPosts())
       .catch((err) => console.log(err));
-    setOpen(true);
-   
+ 
   };
-
 
   return (
     <Card
       sx={{
-        width: "50%",
-        height: "75vh",
+        width: "40%",
+        height: "max-content",
         margin: 1,
         padding: 1,
         display: "flex",
         flexDirection: "column",
         boxShadow: "5px 5px 10px #ccc",
+        // scrollbarWidth:'none',
+        // overflowY:'scroll'
+      
       }}
     >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-     {name.charAt(0)}
+            {name.charAt(0)}
           </Avatar>
         }
         action={
@@ -86,7 +94,12 @@ const DiaryItem = ({ title, location, image, description, id, date, user,name })
         header={location}
         subheader={date}
       />
-      <img height="194" src={image} alt={title} />
+      <img
+        height="194"
+        src={image}
+        alt={title}
+        // style={{ objectFit: "contain" }}
+      />
       <CardContent>
         <Typography paddingBottom={1} variant="h6" color="text.secondary">
           {title}
@@ -94,7 +107,7 @@ const DiaryItem = ({ title, location, image, description, id, date, user,name })
         <hr />
         <Box paddingTop={1} display={"flex"}>
           <Typography width={"170px"} fontWeight="bold" variant="caption">
-           {name}
+            {name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {description}
@@ -107,25 +120,23 @@ const DiaryItem = ({ title, location, image, description, id, date, user,name })
             <EditIcon />
           </IconButton>
           <IconButton color="error">
-            <DeleteIcon onClick={handleDelete}/>
+            <DeleteIcon onClick={handleDelete} />
           </IconButton>
         </CardActions>
-
-
       )}
-      <Snackbar
-open={open}
-autoHideDuration={6000}
-onClose={() => setOpen(false)}
->
-<Alert
-  onClose={() => setOpen(false)}
-  severity="success"
-  sx={{ width: "100%" }}
->
-  This is a success message!
-</Alert>
-</Snackbar>
+      {/* <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert
+          onClose={() => setOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          This is a success message!
+        </Alert>
+      </Snackbar> */}
     </Card>
   );
 };

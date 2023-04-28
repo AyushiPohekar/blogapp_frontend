@@ -19,7 +19,7 @@ const Diaries = () => {
       justifyContent="center"
       alignItems="center"
     >
-      {posts.map((item, index) => {
+      {posts&&posts.map((item, index) => {
         return (
           <>
             <DiaryItem

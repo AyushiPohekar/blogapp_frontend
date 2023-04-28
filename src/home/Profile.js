@@ -22,18 +22,21 @@ const Profile = () => {
     navigate("/");
   };
   return (
-    <Box display="flex" flexDirection={"column"} margin="auto">
+    <Box display="flex" flexDirection={"column"} margin="auto" >
       {user && (
         <>
           {" "}
+          <Box margin={2}>
           <Typography
             textAlign={"center"}
             variant="h3"
             fontFamily={"quicksand"}
             padding={2}
+            margin={2}
           >
             User Profile
           </Typography>
+         
           <Typography fontFamily={"quicksand"} padding={1} textAlign="left">
             Name: {user.name}
           </Typography>
@@ -48,6 +51,7 @@ const Profile = () => {
           >
             Logout
           </Button>
+          </Box>
           <Box
             display="flex"
             flexDirection={"column"}

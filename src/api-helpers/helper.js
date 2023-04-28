@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getAllPosts = async () => {
-  const res = await axios.get("/posts/");
+  const res = await axios.get("/posts");
   if (res.status !== 200) {
     return console.log("Some error occurred");
   }
@@ -9,21 +9,35 @@ export const getAllPosts = async () => {
   return data;
 };
 
-export const sendAuthRequest = async (signup, data) => {
-  const res = await axios
-    .post(`/users/${signup ? "signup" : "login"}`, {
-      name: data.name ? data.name : "",
-      email: data.email,
-      password: data.password,
-    })
-    .catch((err) => console.log(err));
-  console.log("res", res);
-  if (res.status !== 200 && res.status !== 201) {
-    return console.log("Unable to Authenticate");
-  }
-  const resData = await res.data;
-  return resData;
-};
+
+  export const sendAuthRequest = async (signup, data) => {
+    //console.log('signup:',signup,'data:',data)
+    const res = await axios
+      .post(`/users/${signup ? "signup" : "login"}/`, {
+        name: data.name ? data.name : "",
+        email: data.email,
+        password: data.password,
+      })
+      .catch((err) => console.log(err));
+  
+
+    // if (res.status==400) {
+    //   return alert("Email exists")
+    // }
+    // else if(res.status !== 200 && res.status !== 201){
+    //   return console.log("Unable to Authenticate")
+    // }else{
+    //   const resData = await res.data;
+    // console.log(resData)
+    // return resData;
+    // }
+    console.log(res.status)
+    const resData = await res.data;
+  console.log(resData)
+     return resData;
+    
+  };
+
 
 export const addPost = async (data) => {
   const res = await axios

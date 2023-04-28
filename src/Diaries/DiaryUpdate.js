@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPostDetails, postUpdate } from "../api-helpers/helper";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import toast, { Toaster } from 'react-hot-toast';
 
 const DiaryUpdate = () => {
   const [post, setPost] = useState();
@@ -26,6 +27,7 @@ const DiaryUpdate = () => {
           image: data.post.image,
           location: data.post.location,
         });
+   
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -38,9 +40,9 @@ const DiaryUpdate = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputs);
+    //console.log(inputs);
     postUpdate(inputs, id)
-      .then((data) => console.log(data))
+      .then((data) => toast.success(data.message))
       .catch((err) => console.log(err));
   };
   return (
@@ -111,6 +113,7 @@ const DiaryUpdate = () => {
           </Box>
         </form>
       )}
+           <Toaster />
     </Box>
   );
 };
