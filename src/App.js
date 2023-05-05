@@ -12,6 +12,9 @@ import Home from "./home/Home";
 import Profile from "./home/Profile";
 import { authActions } from "./store";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -40,6 +43,7 @@ function App() {
             </>
           )}
       </Routes>
+      <ToastContainer/>
     </div>
   );
 }

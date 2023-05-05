@@ -3,14 +3,14 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { sendAuthRequest } from "../api-helpers/helper";
+import {  sendAuthRequest1, sendAuthRequest2 } from "../api-helpers/helper";
 import { authActions } from "../store";
 
 const Auth = () => {
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const onResReceived = (data) => {
-    console.log(data)
+    console.log(data);
     if (isSignUp) {
       localStorage.setItem("userId", data.user._id);
     } else {
@@ -29,14 +29,14 @@ const Auth = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    //console.log(inputs);
+    console.log(`inputs:`,inputs);
 
     if (isSignUp) {
-      sendAuthRequest(true, inputs)
+      sendAuthRequest1(true, inputs)
         .then(onResReceived)
         .catch((err) => console.log(err));
     } else {
-      sendAuthRequest(false, inputs)
+      sendAuthRequest2(false, inputs)
         .then(onResReceived)
         .catch((err) => console.log(err));
     }
@@ -91,7 +91,44 @@ const Auth = () => {
             onChange={handleChange}
             required
           />
-          <Button
+          {isSignUp ? (
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ mt: 2, borderRadius: "10px" }}
+           
+            >
+              SignUp
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ mt: 2, borderRadius: "10px" }}
+           
+            >
+              Login
+            </Button>
+          )}
+          {isSignUp ? (
+            <Button
+              variant="outlined"
+              sx={{ mt: 2, borderRadius: "10px" }}
+              onClick={() => setIsSignUp(!isSignUp)}
+            >
+              Login
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              sx={{ mt: 2, borderRadius: "10px" }}
+              onClick={() => setIsSignUp(!isSignUp)}
+            >
+              Signup
+            </Button>
+          )}
+
+          {/* <Button
             type="submit"
             variant="contained"
             sx={{ mt: 2, borderRadius: "10px" }}
@@ -104,7 +141,7 @@ const Auth = () => {
             onClick={() => setIsSignUp(!isSignUp)}
           >
             Change to {isSignUp ? "Login" : "SignUp"}
-          </Button>
+          </Button> */}
         </Box>
       </form>
     </Box>

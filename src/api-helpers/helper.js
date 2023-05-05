@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const getAllPosts = async () => {
   const res = await axios.get("/posts");
@@ -9,35 +10,39 @@ export const getAllPosts = async () => {
   return data;
 };
 
-
-  export const sendAuthRequest = async (signup, data) => {
-    //console.log('signup:',signup,'data:',data)
-    const res = await axios
-      .post(`/users/${signup ? "signup" : "login"}/`, {
-        name: data.name ? data.name : "",
-        email: data.email,
-        password: data.password,
-      })
-      .catch((err) => console.log(err));
-  
-
-    // if (res.status==400) {
-    //   return alert("Email exists")
-    // }
-    // else if(res.status !== 200 && res.status !== 201){
-    //   return console.log("Unable to Authenticate")
-    // }else{
-    //   const resData = await res.data;
-    // console.log(resData)
-    // return resData;
-    // }
-    console.log(res.status)
+export const sendAuthRequest1 = async (signup, data) => {
+  console.log("signup:", signup, "data:", data);
+  try {
+    const res = await axios.post(`/users/signup`, {
+      name: data.name ? data.name : "",
+      email: data.email,
+      password: data.password,
+    });
+    console.log(res);
     const resData = await res.data;
-  console.log(resData)
-     return resData;
-    
-  };
-
+    console.log(resData);
+    return resData;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log(error.response.data.message);
+  }
+};
+export const sendAuthRequest2 = async (signup, data) => {
+  //console.log('signup:',signup,'data:',data)
+  try {
+    const res = await axios.post(`/users/login`, {
+      email: data.email,
+      password: data.password,
+    });
+    console.log(res);
+    const resData = await res.data;
+    console.log(resData);
+    return resData;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log(error.response.data.message);
+  }
+};
 
 export const addPost = async (data) => {
   const res = await axios
@@ -50,13 +55,13 @@ export const addPost = async (data) => {
       user: localStorage.getItem("userId"),
     })
     .catch((err) => console.log(err));
- console.log("res",res)
+  console.log("res", res);
   if (res.status !== 201) {
     return console.log("Error Occurred");
   }
 
   const resData = await res.data;
-  console.log("resData",resData)
+  console.log("resData", resData);
   return resData;
 };
 
