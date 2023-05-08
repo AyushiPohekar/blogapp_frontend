@@ -2,8 +2,10 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { getAllPosts } from "../api-helpers/helper";
 import DiaryItem from "./DiaryItem";
+import { useLoading } from "../context/loading";
 
 const Diaries = () => {
+  const[loaddata,setLoadData]=useLoading()
   const [posts, setposts] = useState([]);
   console.log(posts);
   useEffect(() => {
@@ -19,7 +21,14 @@ const Diaries = () => {
       justifyContent="center"
       alignItems="center"
     >
-      {posts&&posts.map((item, index) => {
+      {
+        loaddata?(<>
+        
+        <div>Data is loading..Please wait.</div>
+        
+        </>):(
+          <>
+          {posts&&posts.map((item, index) => {
         return (
           <>
             <DiaryItem
@@ -36,6 +45,11 @@ const Diaries = () => {
           </>
         );
       })}
+          
+          
+          </>
+        )
+      }
     </Box>
   );
 };
