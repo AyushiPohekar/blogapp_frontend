@@ -1,5 +1,5 @@
 Blogapp:
-https://64583dc68d549b0008b1c42d--splendorous-donut-e614e2.netlify.app/
+https://harmonious-banoffee-75368e.netlify.app/
 
 demo users:
 
