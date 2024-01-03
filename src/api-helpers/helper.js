@@ -45,6 +45,7 @@ export const sendAuthRequest2 = async (signup, data) => {
 };
 
 export const addPost = async (data) => {
+  console.log("add")
   const res = await axios
     .post("/posts/", {
       title: data.title,

@@ -7,7 +7,7 @@ import { useLoading } from "../context/loading";
 const Diaries = () => {
   const[loaddata,setLoadData]=useLoading()
   const [posts, setposts] = useState([]);
-  console.log(posts);
+
   useEffect(() => {
     getAllPosts()
       .then((data) => setposts(data?.posts))

@@ -18,7 +18,7 @@ import { Box } from "@mui/system";
 import { Alert, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllPosts, postDelete } from "../api-helpers/helper";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 const DiaryItem = ({
   title,
   location,
@@ -29,7 +29,7 @@ const DiaryItem = ({
   user,
   name,
 }) => {
- // const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
   // const handleClick = () => {
   //   setOpen(true);
@@ -40,9 +40,9 @@ const DiaryItem = ({
   //     return;
   //   }
 
-    // setOpen(false);
+  // setOpen(false);
 
-const navigate=useNavigate();
+  const navigate = useNavigate();
   const isLoggedInUser = () => {
     if (localStorage.getItem("userId") === user) {
       return true;
@@ -50,18 +50,20 @@ const navigate=useNavigate();
       return false;
     }
   };
- 
+
   // const deletedfunc=(data)=>{
   //   toast.success(data.message)
   // nbavigate('/diaries')
 
-   
   // }
   const handleDelete = () => {
+    console.log("hellos");
     postDelete(id)
-      .then(()=>getAllPosts())
+      .then(() => getAllPosts())
+      .then(() => {
+        window.location.reload();
+      })
       .catch((err) => console.log(err));
- 
   };
 
   return (
@@ -76,7 +78,6 @@ const navigate=useNavigate();
         boxShadow: "5px 5px 10px #ccc",
         // scrollbarWidth:'none',
         // overflowY:'scroll'
-      
       }}
     >
       <CardHeader

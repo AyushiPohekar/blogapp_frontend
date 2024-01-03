@@ -1,12 +1,13 @@
 import { Button, FormLabel, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getPostDetails, postUpdate } from "../api-helpers/helper";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import toast, { Toaster } from 'react-hot-toast';
 
 const DiaryUpdate = () => {
+  const navigate=useNavigate("")
   const [post, setPost] = useState();
   const [inputs, setInputs] = useState({
     title: "",
@@ -42,7 +43,10 @@ const DiaryUpdate = () => {
     e.preventDefault();
     //console.log(inputs);
     postUpdate(inputs, id)
-      .then((data) => toast.success(data.message))
+    .then((data) => {
+      toast.success(data.message);
+      navigate("/diaries");
+    })
       .catch((err) => console.log(err));
   };
   return (
